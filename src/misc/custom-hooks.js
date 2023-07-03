@@ -9,19 +9,17 @@ export function useModalState(defaultValue = false) {
   return { isOpen, open, close };
 }
 
-export const useMediaQuery = query => {
-  const [matches, setMatches] = useState(
-    () => window.matchMedia(query).matches
-  );
+export const useMediaQuery = (query) => {
+  const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
 
   useEffect(() => {
     const queryList = window.matchMedia(query);
     setMatches(queryList.matches);
 
-    const listener = evt => setMatches(evt.matches);
+    const listener = (evt) => setMatches(evt.matches);
 
-    queryList.addListener(listener);
-    return () => queryList.removeListener(listener);
+    queryList.addEventListener('change', listener); // Use addEventListener instead of addListener
+    return () => queryList.removeEventListener('change', listener); // Use removeEventListener instead of removeListener
   }, [query]);
 
   return matches;
