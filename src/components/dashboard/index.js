@@ -4,6 +4,7 @@ import { useProfile } from '../../context/profile.context';
 import EditableInput from '../EditableInput';
 import { database } from '../../misc/firebase';
 import ProviderBlock from './ProviderBlock';
+import AvataeUploadBtn from './AvataeUploadBtn';
 
 const Dashboard = ({onSignOut}) => {
 
@@ -41,6 +42,7 @@ const Dashboard = ({onSignOut}) => {
         onSave = {onSave}
         label = {<h6 className='mb-2'>Nickname</h6>}
         />
+        <AvataeUploadBtn  />
     </Drawer.Body>
 
     <Drawer.Footer>
