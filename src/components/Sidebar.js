@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Divider } from 'rsuite';
 import DashboardToggle from './dashboard/DashboardToggle';
-import CreateRoomBtnModal from './dashboard/CreateRoomBtnModal';
+import CreateRoomBtnModal from './CreateRoomBtnModal';
 import ChatRoomList from './rooms/ChatRoomList';
 
 const Sidebar = () => {

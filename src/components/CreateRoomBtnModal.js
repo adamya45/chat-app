@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { useModalState } from '../../misc/custom-hooks';
+import { useModalState } from '../misc/custom-hooks';
 import {
     Alert,
   Button,
@@ -12,7 +12,7 @@ import {
   Schema,
 } from 'rsuite';
 import firebase from 'firebase/app';
-import { database } from '../../misc/firebase';
+import { database } from '../misc/firebase';
 
 const { StringType } = Schema.Types;
 
