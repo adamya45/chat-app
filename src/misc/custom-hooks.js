@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect} from 'react';
 import { database } from './firebase';
 
 export function useModalState(defaultValue = false) {
@@ -9,6 +9,7 @@ export function useModalState(defaultValue = false) {
 
   return { isOpen, open, close };
 }
+
 
 export const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
@@ -25,6 +26,7 @@ export const useMediaQuery = (query) => {
 
   return matches;
 };
+
 
 export function usePresence(uid) {
   const [ presence, setPresence ] = useState(null);

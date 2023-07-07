@@ -6,9 +6,14 @@ import ProfileInfoBtnModal from './ProfileInfoBtnModal';
 import PresenceDot from '../../PresenceDot';
 import { useCurrentRoom } from '../../../context/current-room.context';
 import { auth } from '../../../misc/firebase';
+import { useHover } from '@uidotdev/usehooks';
+import IconBtnControl from './IconBtnControl';
+
 
 const MessageItem = ({ message, handleAdmin }) => {
   const { author, createdAt, text } = message;
+
+  const [selfRef, isHovered] = useHover();
 
   const isAdmin = useCurrentRoom(v => v.isAdmin);
   const admins = useCurrentRoom(v => v.admins);
@@ -18,7 +23,7 @@ const MessageItem = ({ message, handleAdmin }) => {
   const canGrantAdmin = isAdmin && !isAuthor;
 
   return (
-    <li className="padded mb-1">
+    <li className={`padded mb-1 cursor-pointer ${isHovered? 'bg-black-02' : ''}`}  ref={selfRef}>
       <div className="d-flex align-items-center font-bolder mb-1">
         <PresenceDot uid={author.uid} />
 
@@ -41,9 +46,18 @@ const MessageItem = ({ message, handleAdmin }) => {
             </Button>
           )}
         </ProfileInfoBtnModal>
+
         <TimeAgo
           datetime={createdAt}
           className="font-normal text-black-45 ml-2"
+        />
+        <IconBtnControl
+        {...(true ? { color: 'red'} : {})}
+        isVisible
+        iconName="heart"
+        tooltip="Like this message"
+        onClick={() => {}} 
+        badgeContent={5}
         />
       </div>
 
