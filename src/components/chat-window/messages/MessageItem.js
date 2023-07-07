@@ -9,8 +9,7 @@ import { auth } from '../../../misc/firebase';
 import { useHover, useMediaQuery } from '@uidotdev/usehooks';
 import IconBtnControl from './IconBtnControl';
 
-
-const MessageItem = ({ message, handleAdmin, handleLike }) => {
+const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
   const { author, createdAt, text, likes, likeCount } = message;
 
   const [selfRef, isHovered] = useHover();
@@ -24,10 +23,13 @@ const MessageItem = ({ message, handleAdmin, handleLike }) => {
   const canGrantAdmin = isAdmin && !isAuthor;
 
   const canShowIcons = isMobile || isHovered;
-  const isLiked = likes&& Object.keys(likes).includes(auth.currentUser.uid);
+  const isLiked = likes && Object.keys(likes).includes(auth.currentUser.uid);
 
   return (
-    <li className={`padded mb-1 cursor-pointer ${isHovered? 'bg-black-02' : ''}`}  ref={selfRef}>
+    <li
+      className={`padded mb-1 cursor-pointer ${isHovered ? 'bg-black-02' : ''}`}
+      ref={selfRef}
+    >
       <div className="d-flex align-items-center font-bolder mb-1">
         <PresenceDot uid={author.uid} />
 
@@ -56,13 +58,24 @@ const MessageItem = ({ message, handleAdmin, handleLike }) => {
           className="font-normal text-black-45 ml-2"
         />
         <IconBtnControl
-        {...(isLiked ? { color: 'red'} : {})}
-        isVisible={canShowIcons}
-        iconName="heart"
-        tooltip="Like this message"
-        onClick={() => handleLike(message.id)} 
-        badgeContent={likeCount}
+          {...(isLiked ? { color: 'red' } : {})}
+          isVisible={canShowIcons}
+          iconName="heart"
+          tooltip="Like this message"
+          onClick={() => handleLike(message.id)}
+          badgeContent={likeCount}
         />
+
+        {isAuthor && (
+          <IconBtnControl
+            isVisible={canShowIcons}
+            iconName="close"
+            tooltip="Delete this message"
+            onClick={() => handleDelete(message.id)}
+            //badgeContent={likeCount}
+          />
+        )}
+
       </div>
 
       <div>
