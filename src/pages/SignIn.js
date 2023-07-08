@@ -1,17 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import firebase from 'firebase/app';
 import { Alert, Button, Col, Container, Grid, Icon, Panel, Row } from 'rsuite';
 import { auth, database } from '../misc/firebase';
 
 const SignIn = () => {
-  /* */ const [isConnected, setIsConnected] = useState({
-    'google.com': auth.currentUser?.providerData?.some(
-      data => data.providerId === 'google.com'
-    ),
-    'facebook.com': auth.currentUser?.providerData?.some(
-      data => data.providerId === 'facebook.com'
-    ),
-  }); /* */
 
   const signInWithProvider = async provider => {
     try {
@@ -24,15 +16,6 @@ const SignIn = () => {
         });
       }
 
-      /* here */ setIsConnected(prevState => ({
-        ...prevState,
-        'google.com': auth.currentUser?.providerData?.some(
-          data => data.providerId === 'google.com'
-        ),
-        'facebook.com': auth.currentUser?.providerData?.some(
-          data => data.providerId === 'facebook.com'
-        ),
-      })); /* */
 
       Alert.success('Signed in', 4000);
     } catch (err) {
@@ -64,7 +47,7 @@ const SignIn = () => {
                   block
                   color="blue"
                   onClick={onFacebookSignIn}
-                  disabled={isConnected['facebook.com']}
+                  
                 >
                   <Icon icon="facebook" /> Continue with facebook
                 </Button>
@@ -73,7 +56,6 @@ const SignIn = () => {
                   block
                   color="green"
                   onClick={onGoogleSignIn}
-                  disabled={isConnected['google.com']}
                 >
                   <Icon icon="google" /> Continue with Google
                 </Button>
