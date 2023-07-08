@@ -10,19 +10,26 @@ import { useHover, useMediaQuery } from '@uidotdev/usehooks';
 import IconBtnControl from './IconBtnControl';
 import ImgBtnModal from './ImgBtnModal';
 
-const renderFileMessage = (file) => {
-
-  if(file.contentType.includes('image')) {
+const renderFileMessage = file => {
+  if (file.contentType.includes('image')) {
     return (
-    <div className="height-220">
-      <ImgBtnModal src={file.url} fileName={file.name} />
-    </div>
+      <div className="height-220">
+        <ImgBtnModal src={file.url} fileName={file.name} />
+      </div>
     );
   }
 
+  if (file.contentType.includes('audio')) {
+    return (
+      <audio controls>
+        <source src={file.url} type="audio/mp3" />
+        Your browser does not support this audio element.
+      </audio>
+    );
+  }
 
-  return <a href={file.url}>Download {file.name}</a>
-}
+  return <a href={file.url}>Download {file.name}</a>;
+};
 
 const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
   const { author, createdAt, text, file, likes, likeCount } = message;
@@ -86,10 +93,9 @@ const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
             isVisible={canShowIcons}
             iconName="close"
             tooltip="Delete this message"
-            onClick={() => handleDelete(message.id)}
+            onClick={() => handleDelete(message.id, file)}
           />
         )}
-
       </div>
 
       <div>

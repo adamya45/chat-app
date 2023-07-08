@@ -14,7 +14,7 @@ const AudioMsgBtn = ({ afterUpload }) => {
   }, []);
 
   const onUpload = useCallback(
-    async data => {
+    async (data) => {
       setIsUploading(true);
 
       try {
@@ -33,6 +33,7 @@ const AudioMsgBtn = ({ afterUpload }) => {
 
         setIsUploading(false);
         afterUpload([file]);
+        
       } catch (err) {
         setIsUploading(false);
         Alert.error(err.message);
